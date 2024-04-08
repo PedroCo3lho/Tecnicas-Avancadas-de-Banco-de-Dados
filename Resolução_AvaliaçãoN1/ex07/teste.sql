@@ -5,14 +5,14 @@
 # Modelo Lógico MySQL (MariaDB)
 */
 
-USE AvaliacaoN1;
+USE avaliacaon1;
 
 CREATE TABLE `Motorista`(
     `id_Motorista` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `Nome_Motorista` VARCHAR(150) NOT NULL,
-    `Sexo_Motorista` ENUM('M', 'F') NOT NULL,
-    `FK_Veiculos_Atribuidos` BIGINT UNSIGNED NOT NULL
+    `Sexo_Motorista` ENUM('M', 'F') NOT NULL
 );
+
 CREATE TABLE `Veiculos`(
     `id_Veiculo` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
     `Modelo_Veiculo` VARCHAR(50) NOT NULL,
@@ -24,5 +24,10 @@ CREATE TABLE `Veiculos`(
     ) NOT NULL
 );
 
-ALTER TABLE
-    `Motorista` ADD FOREIGN KEY(`FK_Veiculos_Atribuidos`) REFERENCES `Veiculos`(`id_Veiculo`);
+CREATE TABLE `Motorista_Veiculo` (
+    `id_Motorista_Veiculo` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    `FK_Motorista` BIGINT UNSIGNED NOT NULL,
+    `FK_Veiculo` BIGINT UNSIGNED NOT NULL,
+    FOREIGN KEY (`FK_Motorista`) REFERENCES `Motorista`(`id_Motorista`),
+    FOREIGN KEY (`FK_Veiculo`) REFERENCES `Veiculos`(`id_Veiculo`)
+);
